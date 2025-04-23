@@ -86,12 +86,24 @@ with tab1:
             delta = fecha_fin - fecha_inicio
             dias_totales = delta.days + 1  # Incluye el día inicial
             
+            # Mapeo de días en inglés a español (clave para que funcione)
+            dias_ingles_a_espanol = {
+                "Monday": "Lunes",
+                "Tuesday": "Martes",
+                "Wednesday": "Miércoles",
+                "Thursday": "Jueves",
+                "Friday": "Viernes",
+                "Saturday": "Sábado",
+                "Sunday": "Domingo"
+            }
+            
             # Calcula días laborales según configuración
             dias_laborales = 0
             for i in range(dias_totales):
                 dia = fecha_inicio + timedelta(days=i)
-                nombre_dia = dia.strftime("%A")
-                if nombre_dia in dias_semana:
+                nombre_dia_ingles = dia.strftime("%A")
+                nombre_dia_espanol = dias_ingles_a_espanol.get(nombre_dia_ingles, "")
+                if nombre_dia_espanol in dias_semana:  # Ahora compara con los nombres en español
                     dias_laborales += 1
             
             dias_laborales -= vacaciones
